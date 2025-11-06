@@ -96,7 +96,7 @@ Examples:
     # Parse ARXML file
     arxml_parser = ARXMLParser(str(arxml_file))
     if not arxml_parser.parse():
-        print("Error: Failed to parse ARXML file", file=sys.stderr)
+        print("Error: Failed to parse ARXML file. Please check the file format and try again.", file=sys.stderr)
         return 1
     
     if args.verbose:

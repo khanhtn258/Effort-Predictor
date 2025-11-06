@@ -38,6 +38,12 @@ class ARXMLParser:
             self.tree = ET.parse(self.filepath)
             self.root = self.tree.getroot()
             return True
+        except ET.ParseError as e:
+            print(f"Error parsing ARXML file: Invalid XML format - {e}")
+            return False
+        except FileNotFoundError as e:
+            print(f"Error parsing ARXML file: File not found - {e}")
+            return False
         except Exception as e:
             print(f"Error parsing ARXML file: {e}")
             return False

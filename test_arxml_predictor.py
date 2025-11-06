@@ -9,13 +9,19 @@ from arxml_parser import ARXMLParser
 from effort_predictor import EffortPredictor
 
 
+# Sample file path constant
+SAMPLE_ARXML_FILE = Path(__file__).parent / 'sample.arxml'
+
+
 class TestARXMLParser(unittest.TestCase):
     """Test cases for ARXMLParser class."""
     
     def setUp(self):
         """Set up test fixtures."""
-        self.sample_file = Path(__file__).parent / 'sample.arxml'
-        self.parser = ARXMLParser(str(self.sample_file))
+        # Verify sample file exists before running tests
+        if not SAMPLE_ARXML_FILE.exists():
+            self.skipTest(f"Sample ARXML file not found at {SAMPLE_ARXML_FILE}")
+        self.parser = ARXMLParser(str(SAMPLE_ARXML_FILE))
     
     def test_parse_valid_file(self):
         """Test parsing a valid ARXML file."""
@@ -141,10 +147,12 @@ class TestIntegration(unittest.TestCase):
     
     def test_end_to_end_workflow(self):
         """Test complete workflow from parsing to prediction."""
-        sample_file = Path(__file__).parent / 'sample.arxml'
+        # Use constant for sample file path
+        if not SAMPLE_ARXML_FILE.exists():
+            self.skipTest(f"Sample ARXML file not found at {SAMPLE_ARXML_FILE}")
         
         # Parse file
-        parser = ARXMLParser(str(sample_file))
+        parser = ARXMLParser(str(SAMPLE_ARXML_FILE))
         self.assertTrue(parser.parse())
         
         # Extract metrics
