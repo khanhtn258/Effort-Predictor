@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-2-2.xsd">
+  
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>ComponentTypes</SHORT-NAME>
+      <ELEMENTS>
+        
+        <!-- Application Software Component Type -->
+        <APPLICATION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>SensorComponent</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE>
+              <SHORT-NAME>SensorData</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/SensorDataInterface</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SW-COMPONENT-TYPE>
+        
+        <!-- Another Application Component -->
+        <APPLICATION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>ControllerComponent</SHORT-NAME>
+          <PORTS>
+            <R-PORT-PROTOTYPE>
+              <SHORT-NAME>SensorInput</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/SensorDataInterface</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE>
+              <SHORT-NAME>ControlOutput</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/ControlInterface</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SW-COMPONENT-TYPE>
+        
+        <!-- Composition Component -->
+        <COMPOSITION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>SystemComposition</SHORT-NAME>
+          <COMPONENTS>
+            <SW-COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Sensor</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/ComponentTypes/SensorComponent</TYPE-TREF>
+            </SW-COMPONENT-PROTOTYPE>
+            <SW-COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Controller</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/ComponentTypes/ControllerComponent</TYPE-TREF>
+            </SW-COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+        </COMPOSITION-SW-COMPONENT-TYPE>
+        
+      </ELEMENTS>
+    </AR-PACKAGE>
+    
+    <AR-PACKAGE>
+      <SHORT-NAME>Interfaces</SHORT-NAME>
+      <ELEMENTS>
+        
+        <!-- Sender-Receiver Interface -->
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>SensorDataInterface</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>Temperature</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>Pressure</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>ControlInterface</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>ControlSignal</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        
+        <!-- Client-Server Interface -->
+        <CLIENT-SERVER-INTERFACE>
+          <SHORT-NAME>DiagnosticInterface</SHORT-NAME>
+        </CLIENT-SERVER-INTERFACE>
+        
+      </ELEMENTS>
+    </AR-PACKAGE>
+    
+    <AR-PACKAGE>
+      <SHORT-NAME>SystemSignals</SHORT-NAME>
+      <ELEMENTS>
+        
+        <SYSTEM-SIGNAL>
+          <SHORT-NAME>TemperatureSignal</SHORT-NAME>
+        </SYSTEM-SIGNAL>
+        
+        <SYSTEM-SIGNAL>
+          <SHORT-NAME>PressureSignal</SHORT-NAME>
+        </SYSTEM-SIGNAL>
+        
+        <I-SIGNAL>
+          <SHORT-NAME>ControlSignalPDU</SHORT-NAME>
+        </I-SIGNAL>
+        
+      </ELEMENTS>
+    </AR-PACKAGE>
+    
+  </AR-PACKAGES>
+  
+</AUTOSAR>
